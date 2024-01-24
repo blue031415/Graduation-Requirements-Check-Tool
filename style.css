@@ -1,0 +1,9 @@
+header{
+    background-color: bisque;
+    text-align: center;
+}
+
+#drop_zone {
+    width: device-width;
+    height: device-width;
+}
