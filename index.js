@@ -49,6 +49,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
+//単位を取得しているかの判定
 function isEarnCredit(result){
     if (result[7] == "A+" || result[7] == "A" || result[7]=="B" || result[7]=="C"){
         console.log("Earn credit!");
