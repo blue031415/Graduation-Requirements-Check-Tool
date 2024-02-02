@@ -1,11 +1,6 @@
 const readfile = document.getElementById("abc");
 
-addEventListener("load",function(){
-    console.log("Hello world");
-});
-
 async function DisplayConsole(){
-    console.log("foo");
     const res = await fetch("https://blue031415.github.io/Graduation-Requirements-Check-Tool/grad.json");
     const users = await res.json();
     console.log(users);
@@ -53,3 +48,10 @@ document.addEventListener('DOMContentLoaded', function() {
         outputDiv.innerText = JSON.stringify(result, null, 2);
     }
 });
+
+function isEarnCredit(result){
+    if (result[7] == "A+" || result[7] == "A" || result[7]=="B" || result[7]=="C"){
+        console.log("Earn credit!");
+    }else
+        console.log("Don't earn credit!");
+}
