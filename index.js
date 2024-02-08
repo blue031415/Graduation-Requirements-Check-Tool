@@ -12,23 +12,32 @@ document.addEventListener('DOMContentLoaded', function() {
     var fileInput = document.getElementById('fileInput');
     var convertButton = document.getElementById('convertButton');
     var outputDiv = document.getElementById('output');
+    var fileLoaded = false;//ファイルが読み込まれたかどうかのフラグ
 
     fileInput.addEventListener('change', handleFileSelect);
     convertButton.addEventListener('click', convertToJSON);
 
-    function handleFileSelect(event) {
+    function handleFileSelect(event) {//テキストデータとして読み込み、divタグに格納して表示する関数
         var file = event.target.files[0];
         var reader = new FileReader();
 
         reader.onload = function(event) {
             var csvData = event.target.result;
             outputDiv.innerText = csvData;
+            fileLoaded = true; //ファイルが読み込まれたフラグをtrueにする。
+            convertButton.disabled = false;//コンバートボタンの有効化
         };
 
         reader.readAsText(file);
     }
 
     function convertToJSON() {
+
+        if(!fileLoaded){
+            alert("ファイルを選択してください")
+            return;
+        }
+
         var csvData = outputDiv.innerText;
         var lines = csvData.split('\n');
         var result = [];
@@ -42,10 +51,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 obj[headers[j]] = currentLine[j];
             }
 
-            result.push(obj);
+            if(obj['"総合評価"']!=='"D"' && obj['"総合評価"']!=='"F"'){
+                result.push(obj);
+            }
         }
 
         outputDiv.innerText = JSON.stringify(result, null, 2);
+        convertButton.disabled = true;//コンバートボタンを無効化
     }
 });
 
